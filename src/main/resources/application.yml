@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: service1
+
+  config:
+    import:
+    - application-circuitbreaker.yml
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.transaction: TRACE
+    org.springframework.data.r2dbc.connectionfactory: DEBUG
+    org.springframework.web: DEBUG
+    org.zalando.logbook: TRACE
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  tracing:
+    enabled: true
+    sampling.probability: 1.0
+    propagation.type: b3
