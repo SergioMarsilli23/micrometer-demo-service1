@@ -13,8 +13,8 @@ import org.zalando.logbook.Logbook;
 import org.zalando.logbook.autoconfigure.webflux.LogbookWebFluxAutoConfiguration;
 import org.zalando.logbook.netty.LogbookClientHandler;
 
-import brave.Tracer;
 import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.tracing.Tracer;
 import reactor.netty.http.client.HttpClient;
 
 @Configuration
@@ -36,7 +36,7 @@ public class WebClientBuilderConfig {
 
     @Bean
     CorrelationId correlationId(final Tracer tracer) {
-		return request -> requireNonNull(requireNonNull(tracer.currentSpan())).context().traceIdString();
+		return request -> requireNonNull(requireNonNull(tracer.currentSpan())).context().traceId();
 	}
     
 }
