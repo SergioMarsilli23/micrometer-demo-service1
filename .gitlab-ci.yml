@@ -1,0 +1,8 @@
+include:
+  - project: "gestion-digital/devops/pipelines/pipelines"
+    file: "/templates/.gitlab-ci-template.yml"
+
+stages:
+  - build
+  - test
+  - docker
