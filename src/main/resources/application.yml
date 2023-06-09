@@ -2,6 +2,10 @@ spring:
   application:
     name: service1
 
+  config:
+    import:
+    - application-circuitbreaker.yml
+
 server:
   port: 8080
 
