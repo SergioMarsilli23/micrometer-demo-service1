@@ -14,11 +14,18 @@ logging:
     org.springframework: INFO
     org.springframework.transaction: TRACE
     org.springframework.web: DEBUG
+    org.zalando.logbook: TRACE
   pattern:
-    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
-    level: "%5p [${spring.application.name:}]"
+    console: "%d{HH:mm:ss.SSS} [%t] %X{traceId:-},%X{spanId:-} %-5level %logger{36} - %msg%n"
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+    propagation:
+      type: w3c
   endpoints:
     web:
       exposure:

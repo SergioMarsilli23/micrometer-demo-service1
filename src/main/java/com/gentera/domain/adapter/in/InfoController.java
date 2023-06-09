@@ -7,6 +7,10 @@ import com.gentera.domain.handler.InfoHandler;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import io.micrometer.observation.annotation.Observed;
+import io.micrometer.tracing.annotation.ContinueSpan;
+
+
 
 @RestController
 @RequestMapping("/rest/")
@@ -15,6 +19,8 @@ public class InfoController {
     
 	private final InfoHandler findUserHandler;
 
+	@Observed(name = "service1", contextualName = "service1")
+	@ContinueSpan(log = "info-controller")
     @GetMapping(value = "/info", produces = "application/json")
     public Mono<String> getById() {
         return findUserHandler.handle();
